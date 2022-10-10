@@ -1,0 +1,26 @@
+.container__about {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100vw;
+    height: 100vh;
+    
+}
+.about__info {
+    position: absolute;
+    top: 550px; left: 100vw;
+    
+    
+    color: white;
+    width: 800px;
+    
+}
+.about__info h1{
+    font-size: 50px;
+}
+.about__info p{
+    
+    font-size: 20px;
+    
+}

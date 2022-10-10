@@ -1,0 +1,36 @@
+.container__header {
+
+    
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    
+}
+
+.header__info {
+    position: absolute;
+    bottom: 100px; left: 50px;
+}
+.header__info h1{
+    font-size: 80px;
+    color: white;
+
+}
+.header__info button{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 0;
+    background-color: rgba(102, 51, 153, 0);
+    color: white;
+
+    font-size: 50px;
+    transition: transform 0.3s ease;
+}
+.header__info button #react-icon{ 
+    transition: transform 0.3s ease;
+}
+.header__info button:hover, 
+.header__info button:hover #react-icon{ 
+    transform: translateX(3px);
+}

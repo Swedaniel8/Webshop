@@ -1,0 +1,33 @@
+.container__news {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100vw;
+    height: 100%;
+   
+   
+}
+/*.news__info {    
+    color: white;
+    width: 800px;
+    margin-top: 50rem;
+    margin-left: 2rem;
+    margin-bottom: 2rem;    
+}*/
+.news__info {    
+    position: absolute;
+    top: 550px; left: 10px;
+    color: white;
+    width: 800px;
+   
+}
+.news__info h1{
+    font-size: 50px;
+}
+.news__info p{
+    
+    font-size: 20px;
+    
+}
+

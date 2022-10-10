@@ -1,0 +1,112 @@
+
+.component__productcard {
+    display: flex;    
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--color-backgroundCard);
+    color: white;
+    border-radius: 0.4rem;
+
+    width: 500px;
+    height: 500px;
+
+    
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    
+}
+.productcard__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.productcard__info img{
+    height: 340px;
+}
+.productcard__info-btns {
+    display: flex;
+    gap: 1rem;
+}
+
+
+
+/* POPUP */
+.productcard__popup {
+    position: fixed;                
+    display: flex;    
+    justify-content: center;
+    align-items: center;
+    width: 100vw; height: 100vh;
+    top: 0; left: 0;
+    z-index: 1;
+    
+    
+}
+.productcard__popup-info {    
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: rgba(0, 0, 0, 0.911);
+    border-radius: 0.4rem;
+    width: 700px; height: 700px;
+    
+    
+}
+.productcard__popup #react-icon {
+    position: absolute;
+    cursor: pointer;
+    top: 20px; right: 20px;
+    color: white;
+    height: 40px; width: 40px;
+    
+}
+.productcard__popup #react-icon:hover {
+    transform: scale3d(0.9,0.9,0.9);
+    
+}
+.productcard__popup img{
+    height: 340px;
+} 
+.productcard__popup__blur{
+    position: absolute;
+    width: 100vw; height: 100vh;
+    top: 0; left: 0;
+    background-color: rgba(139, 139, 139, 0.219);
+    backdrop-filter: blur(10px);
+    z-index: -1;
+    
+}
+
+
+
+/* but and info buttons */
+.component__productcard .productcard-btn1, 
+.component__productcard .productcard-btn2 {
+    cursor: pointer;    
+    font-weight: 900;
+    font-size: 20px;
+    border: none;
+    width: 160px;
+    padding: 1rem;
+    transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.component__productcard .productcard-btn1 { 
+    background-color: var(--color-btnblue);
+    color: var(--color-backgroundCard-fill);
+} 
+.component__productcard .productcard-btn2 {
+    background-color: rgba(0, 0, 0, 0); 
+    color: var(--color-btnblue);
+    border: 1px solid var(--color-btnblue);
+}
+.component__productcard .productcard-btn1:hover,
+.component__productcard .productcard-btn2:hover {
+    transform: scale3d(1.05,1.05,1.05);
+    
+}
+

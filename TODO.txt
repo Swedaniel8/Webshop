@@ -1,0 +1,29 @@
+1. Om två "routes" har olika heights (mer än 100vh) så kan man använda gsap och låsa det alla element 
+    när det sista elementet nåt botten så det ser ut som man har nått botten när fortsätter scrolla ner.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+test info for stripe card: 
+    press 4242424242...... on everything
+    
+    
+-klarna  ex. kalle kallesson 
+                        APPROVED	                                        DENIED
+    Email	            user-se@example.com	                                user-se+denied@example.com
+    Personal number	    410321-9202 / 19770111-6050 (for Direct Debit)	    411028-8083
+    Street	            Stårgatan 1	                                        Stårgatan 1
+    City	            Ankeborg	                                        Ankeborg
+    Postal code	        12345	                                            12345
+    Phone	            0765260666	                                        0765260888

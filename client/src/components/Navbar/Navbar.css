@@ -1,0 +1,191 @@
+.component__navbar {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    
+    color: var(--color-mainText);
+
+    border-bottom: 2px solid var(--color-mainText);
+    
+    width: 100%;
+    height: 150px;
+
+    background-image: url('../../assets/header4.jpg');
+    background-position: 50% 20%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: 1;
+  
+}
+
+
+.navbar__home {
+    width: 100px;
+    display: flex;
+    justify-content: flex-end;
+}
+.navbar__home #react-icon {
+    cursor: pointer;
+    width: 30px; height: 30px;
+    color: white;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.navbar__home #react-icon:hover {
+    transform: scale3d(1.05,1.05,1.05);
+}
+.navbar__navigation {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+.navbar__navigation .linkBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navbar__navigation button{
+    cursor: pointer;
+
+    border: none;
+
+    background-color: rgba(255, 255, 255, 0);
+    color: var(--color-mainText);
+
+    font-size: 21px;        
+    width: 150px; 
+
+    
+}
+.navbar__navigation button:hover {
+    color: white;
+    font-size: 22px;
+}
+.navbar__navigation-bar {
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 150px; height: 2px;
+
+    background-color: rgba(108, 128, 112, 0.726);        
+    
+    transition: transform 0.2s linear;
+}
+.navbar__navigation .linkBtn:nth-child(2):hover ~ .navbar__navigation-bar{
+   transform: translateX(150px);
+   
+}
+.navbar__navigation .linkBtn:nth-child(3):hover ~ .navbar__navigation-bar{
+    transform: translateX(300px);
+}
+.navbar__navigation .linkBtn:nth-child(4):hover ~ .navbar__navigation-bar{
+    transform: translateX(450px);
+}
+.navbar__navigation .linkBtn:nth-child(5):hover ~ .navbar__navigation-bar{
+    transform: translateX(600px);
+}
+.navbar__navigation .linkBtn:nth-child(6):hover ~ .navbar__navigation-bar{
+    transform: translateX(750px);
+}
+
+/* cart icon*/
+.navbar__cart {
+    position: relative;
+    margin-right: 100px;
+    cursor: pointer;
+}
+.navbar__cart #react-icon{
+    
+    color: white;
+    width: 30px; height: 30px;
+
+}
+.navbar__cart .navbar__cart-items {
+    position: absolute;
+    top: -8px; left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: red;
+    font-weight: 900;
+    width: 23px; height: 23px;
+    border-radius: 50%;
+    
+}
+
+/* Cart Window*/
+.navbar__cartWindow {
+    position: fixed;
+    display: flex;
+    flex-direction: column;    
+    justify-content: space-between;
+    align-items: center;
+
+    top: 0; right: 0;
+    background-color: white;
+    width: 500px; height: 100vh;
+    transition: all 1s ease;
+}
+.navbar__cartWindow #react-icon{
+    position: absolute;
+    cursor: pointer;
+    top: 15px; right: 15px;
+
+    color: black;
+
+    width: 30px; height: 30px;
+}
+.navbar__cartWindow-cards {
+    width: 100%;
+    
+}
+.navbar__cartWindow-cards #react-icon-back{
+    cursor: pointer;
+}
+.navbar__cartWindow-cards #react-icon-back:hover{
+    transform: translateX(-2px);
+}
+.navbar__cartWindow-cards h2{
+    
+    display: flex;
+    align-items: center;    
+    color: black;
+
+    font-size: 23px;
+
+    margin-top: 1rem; margin-left: 1rem;
+}
+.navbar__cartWindow-cards h2 p{
+    color: var(--color-btnblue);
+    font-size: 20px;
+}
+.navbar__cartWindow button {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0);
+    border: 2px solid var(--color-btnblue);
+    color: var(--color-btnblue);
+    font-weight: 900;
+    font-size: 20px;
+
+    margin-bottom: 2rem;
+    width: 300px; height: 50px;
+    
+    transition: background-color 0.2s linear, color 0.2s linear, transform 0.1s ease-out, box-shadow 0.1s ease-out;
+}
+.navbar__cartWindow button:hover {
+    background-color: var(--color-btnblue);
+    color: white;
+}
+.navbar__cartWindow button:active {
+    transform: scale3d(0.97,0.97,0.97);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.navbar__cartWindow .disabled-btn {
+    pointer-events: none;
+    border-color: rgba(128, 128, 128, 0.418);
+    color: rgba(128, 128, 128, 0.281);
+}

@@ -1,0 +1,55 @@
+.component__productcardsmall {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px; width: 100%;
+    border-bottom: 1px solid rgb(199, 198, 198);
+}
+.productcardsmall__content-1 {
+    display: flex;
+    align-items: center;
+}
+.productcardsmall__img img{
+    height: 50px;
+}
+
+.productcardsmall__info {            
+    color: black;    
+}
+.productcardsmall__info h1{
+    font-size: 15px;
+}
+.productcardsmall__info-quantity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+    width: 90px;
+}
+
+.productcardsmall__info-quantity #react-icon-minus {
+    cursor: pointer;
+    border-right: 1px solid black;    
+    padding: 4px;
+    transition: all 0.1s linear;
+}
+.productcardsmall__info-quantity #react-icon-plus {
+    cursor: pointer;
+    border-left: 1px solid black;
+    padding: 4px;
+    transition: all 0.1s linear;
+}
+.productcardsmall__info-quantity #react-icon-minus:active,
+.productcardsmall__info-quantity #react-icon-plus:active {
+    background-color: var(--color-btnblue);
+}
+
+.component__productcardsmall #react-icon-remove {
+    cursor: pointer;
+    height: 20px; width: 20px;
+    fill: red;
+    margin-right: 2rem;
+}
+.component__productcardsmall #react-icon-remove:hover {
+    transform: scale3d(1.1,1.1,1.1);
+}

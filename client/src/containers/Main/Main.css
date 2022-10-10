@@ -1,0 +1,6 @@
+.container__main {
+    display: flex;
+    width: 700vw;
+    overflow-x: hidden;
+    
+}
