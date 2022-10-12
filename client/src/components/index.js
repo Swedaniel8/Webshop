@@ -5,7 +5,11 @@ import ProductCardSmall from './ProductCardSmall/ProductCardSmall'
 import CheckoutForm from './CheckoutForm/CheckoutForm'
 import AddItemForm from './AddItemForm/AddItemForm'
 import ProductCardCheckout from './ProductCardCheckout/ProductCardCheckout'
-
+import AdminNavbar from './AdminNavbar/AdminNavbar'
+import ShowItemForm from './ShowItemForm/ShowItemForm'
+import UpdateItemForm from './UpdateItemForm/UpdateItemForm'
+import AdminItemCard from './AdminItemCard/AdminItemCard'
+import RemoveItemForm from './RemoveItemForm/RemoveItemForm'
 
 
 export {
@@ -15,5 +19,10 @@ export {
     ProductCardSmall,
     CheckoutForm,
     ProductCardCheckout,
-    AddItemForm
+    AddItemForm,
+    AdminNavbar,    
+    ShowItemForm,
+    UpdateItemForm,
+    AdminItemCard,
+    RemoveItemForm
 }

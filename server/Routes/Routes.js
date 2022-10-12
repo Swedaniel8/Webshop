@@ -4,16 +4,26 @@ import express from 'express';
 
 
 
-import { addItemPost, createPaymentMethod, updatePaymentMethod ,getItemsGet  } from '../Controllers/form.js';
+import { addItemPost, createPaymentMethod ,getItemsGet, deleteItem, updateItem  } from '../Controllers/form.js';
 
 const router =  express.Router()
 
-//**    POST REQUESTS
-router.post("/additempost",addItemPost)
-router.get("/getitemsget",getItemsGet)
+// POST, DELETE, GET, PUT REQUESTS
+router.post("/additem",addItemPost)
+router.get("/getitems",getItemsGet)
+router.delete("/deleteitem/:formId/:productId",deleteItem)
+router.put("/updateitem",updateItem)
 
+
+
+
+
+
+// STRIPE PAYMENTS
 router.post("/create-payment-intent",createPaymentMethod)
-router.post("/update-payment-intent",updatePaymentMethod)
+
+
+//router.post("/update-payment-intent",updatePaymentMethod)
 
 
 

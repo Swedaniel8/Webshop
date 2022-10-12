@@ -1,5 +1,10 @@
 1. Om två "routes" har olika heights (mer än 100vh) så kan man använda gsap och låsa det alla element 
     när det sista elementet nåt botten så det ser ut som man har nått botten när fortsätter scrolla ner.
+2. if success page redirect_status===failed after "Gå tillbaka" from Klarna, keep local storage and refill redux storage again?
+    make a new api request and refill
+
+3. Add discount for products and admin page update
+4. updating or adding new products takes time, add some loading info from REDUX to the form
 
 
 
@@ -7,11 +12,7 @@
 
 
 
-
-
-
-
-
+http://localhost:3000/completion?redirect_status=failed
 
 
 

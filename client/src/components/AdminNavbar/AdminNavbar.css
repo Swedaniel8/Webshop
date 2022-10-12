@@ -1,0 +1,45 @@
+.admin__navbar {    
+    position: relative;
+    min-width: 200px; height: 100vh;
+
+    background-color: white;
+
+    border: 1px solid black;
+    z-index: 2;
+    
+}
+.admin__navbar button{
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    margin-bottom: 0.2rem;
+}
+
+.admin__navbar__user {
+    display: flex;    
+    align-items: center;
+
+    font-size: 12px;
+    margin-bottom: 1rem;
+
+}
+.admin__navbar__user #react-icon{
+    cursor: pointer;
+    width: 15px; height: 15px;
+}
+
+.admin__navbar__functions {
+    
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+.admin__navbar__functions button{
+    width: 100%;
+    border: 1px solid black;
+}
+
+
+

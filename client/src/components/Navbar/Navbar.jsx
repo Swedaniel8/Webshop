@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { loadStripe } from '@stripe/stripe-js';
+import toast from 'react-hot-toast';
 
 // REACT-ICON //
 import { BsFillCartFill } from 'react-icons/bs'
@@ -13,6 +15,7 @@ import { addToCart, getCartInfo } from '../../slices/cart'
 import { ProductCardSmall } from '../index'
 import { Link } from "react-scroll";
 import './Navbar.css'
+
 const Navbar = () => {
   const navigate = useNavigate()
   const productArray = [
@@ -41,6 +44,33 @@ const Navbar = () => {
     setNumberItems(selectorLength)
     setCartArray(selectorCart)
   },[selectorLength,selectorCart])
+  const handleCheckout = async() => {
+
+    let stripePromise;
+    if(!stripePromise) {
+      stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLISH_KEY);
+    }
+    const stripe = stripePromise
+    var tempArray = cartArray
+    delete tempArray.file
+    console.log("tempArray: ",tempArray)
+    const response = await fetch('http://localhost:5000/create-payment-intent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(tempArray),
+    });
+
+    if(response.statusCode === 500) return;
+    
+    const data = await response.json();
+
+    toast.loading('Redirecting...');
+
+    stripe.redirectToCheckout({ sessionId: data.id });
+  }
+
   return (
     <div className='component__navbar'>
       
@@ -77,7 +107,7 @@ const Navbar = () => {
           })}
         </div>
         {cartArray.length ? 
-        <button onClick={() => navigate("/checkout")}>Check out</button>
+        <button onClick={handleCheckout}>Check out</button>
         : <button className='disabled-btn'>Check out</button> }
       </div>
     : <div style={{display:"none"}}></div>}

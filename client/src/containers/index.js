@@ -9,6 +9,7 @@ import Suppliers from './Suppliers/Suppliers'
 import Checkout from './Checkout/Checkout'
 import Completion from './Completion/Completion'
 import Admin from './Admin/Admin'
+import Failed from './Failed/Failed'
 
 
 export {
@@ -22,5 +23,6 @@ export {
     Suppliers,
     Checkout,
     Completion,
-    Admin
+    Admin,
+    Failed
 }

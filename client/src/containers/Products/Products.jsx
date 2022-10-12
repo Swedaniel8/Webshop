@@ -6,10 +6,10 @@ import CSSRulePlugin from 'gsap/CSSRulePlugin'
 
 
 import { ProductCard } from '../../components/index'
-import './Products.css'
+
 import { getItems } from '../../slices/apiReducer'
 import { unwrapResult } from '@reduxjs/toolkit'
-
+import './Products.css'
 
 
 const Products = () => {
@@ -20,16 +20,16 @@ const Products = () => {
     {id:"454545",title:"headphone3",info:"3this is a text what else whatever..",price:30 ,img:"imgTest3", review:5,quantity:1},
     {id:"9999991123",title:"headphone4",info:"4this is a text what else whatever..",price:40 ,img:"imgTest4", review:3,quantity:1},
     {id:"123", title: "XRM Headphones 1", info:"Great looking headphones with doolby x13 Virtual Sound",price:50, img:"", review:4,quantity:1}]
-    const [products, setProducts ] = useState([])
-    useEffect(()=>{
-      dispatch(getItems())
-        .then(unwrapResult)
-        .then(res => {
-          if(!res.err && res.success){            
-            setProducts(res.products)
-          }
-        })
-    },[])
+  const [products, setProducts ] = useState([])
+  useEffect(()=>{
+    dispatch(getItems())
+      .then(unwrapResult)
+      .then(res => {
+        if(!res.err && res.success){            
+          setProducts(res.products)
+        }
+      })
+  },[])
  /*
     useEffect(()=>{
         gsap.registerPlugin(ScrollTrigger)

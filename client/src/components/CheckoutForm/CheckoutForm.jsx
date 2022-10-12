@@ -30,6 +30,7 @@ export default function CheckoutForm() {
       switch (paymentIntent.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
+          console.log("ALLT GICK BRA MED BETALNING")
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -54,7 +55,7 @@ export default function CheckoutForm() {
     }
 
     setIsLoading(true);
-
+    console.log("stripe: ",stripe)
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
@@ -62,7 +63,7 @@ export default function CheckoutForm() {
         return_url: "http://localhost:3000/completion",
       },
     });
-
+    
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will

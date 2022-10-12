@@ -1,0 +1,144 @@
+.component__updateitemform {
+    position: fixed;                
+    display: flex;    
+    justify-content: center;
+    align-items: center;
+    height: 850px;
+    width: 600px;
+    top: calc(50vh - 425px); left: calc(50vw - 300px);
+    z-index: 2;
+    
+
+}
+.updateitemform__layout {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: rgba(255, 255, 255, 0.911);
+    border-radius: 0.4rem;
+    
+
+    height: 850px;
+    width: 600px;
+
+    
+}
+.updateitemform__layout p{
+    display: flex;
+    
+    font-size: 12px;
+    max-width: 450px;
+    margin-bottom: 0.5rem;
+}
+.updateitemform__layout p #react-icon{
+    height: 18px; width: 18px;
+    color: rgb(238, 202, 44);
+}
+
+
+.component__updateitemform h1{
+    margin-top: 2rem;
+}
+.component__updateitemform h2{
+    
+    font-size: 15px;
+    width: 450px;
+}
+.component__updateitemform form{
+    display: flex;
+    flex-direction: column;
+    
+}
+.contact__section-input-name {
+    display: flex;
+    gap: 1rem;
+}
+.component__updateitemform label{
+    font-size: 15px;
+}
+.component__updateitemform input:not(#fnumber){
+    font-size: 15px;
+    font-weight: 900;
+    border: 1px solid white;
+    border-bottom: 2px solid rgb(224, 224, 224);
+    outline: none;
+    margin-bottom: 2rem;
+    transition: all 0.2s ease-in-out;
+}
+.component__updateitemform input:not(#fnumber):focus {
+    
+    border-bottom: 2px solid rgb(233, 231, 95);        
+    box-shadow: 0px 8px 18px -6px rgb(233, 231, 95);
+}
+
+.component__updateitemform select {
+
+    border: none;
+    border-bottom: 2px solid rgb(224, 224, 224);
+
+    font-weight: 900;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+.component__updateitemform option {
+    font-weight: 900;
+    
+}
+.component__updateitemform img{
+    height: 300px;
+    background-color: rgb(201, 201, 201);
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    margin-bottom: 1rem;
+    object-fit: cover;
+    
+}
+.component__updateitemform textarea {
+    resize: none;
+
+    border: 2px solid rgb(224, 224, 224);
+    border-radius: 0.3rem;
+
+    font-weight: 900;
+    height: 200px;
+    transition: all 0.2s ease-in-out;
+}
+.component__updateitemform textarea:focus {
+    border-bottom: 2px solid rgb(233, 231, 95);        
+    box-shadow: 0px 0px 18px 0px rgb(233, 231, 95);
+}
+
+
+@media screen and (max-width: 1024px) {    
+    .component__updateitemform {
+        height: 700px;
+        width: 500px;
+        
+    }
+     
+}
+@media screen and (max-width: 730px) {
+    .component__updateitemform {
+        height: 700px;
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .component__updateitemform {
+        height: 720px;
+        width: 250px;
+    }
+    .component__updateitemform input{
+        width: 150px;
+    }
+    .contact__section-input-name {
+        flex-direction: column;
+        gap: 0;
+        margin: 0;
+    }
+
+    
+}
