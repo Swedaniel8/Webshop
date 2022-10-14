@@ -17,6 +17,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 //TODO INPUT VALIDATION AND TOKEN VALIDATION FOR EVERY API CALL
 //! -------------------------------------------------------
 
+// 1. Creates a new Stripe Product and new Stripe Price for Product
+// 2. use input and stripe -info => save it in DB
 export const addItemPost = async(req, res) => {
     const errMsg = "Something went wrong adding the item"
     // VALIDATION SCHEMA
@@ -46,33 +48,34 @@ export const addItemPost = async(req, res) => {
             .required()
     })
 
-
-
-
     const { title, price, info, imglink, file, token } = req.body
-    
-    
-    //console.log("contactPost: ", req.body)
     
     // Adds to stripe database for payment and mongodb for showing on website.
     try {
+        const emptyCheck = { title, price, info, imglink, file: file.base64 }
+        Object.keys(emptyCheck).forEach((e) => {
+            if(!emptyCheck[e]){
+                return res.json({success:null, err:true, message:errMsg})
+            }
+        })
+
         //const validation = await schema.validateAsync(req.body) 
         var tags = req.body.tags.replace(/\s+/g, '');
         const tagsArr = tags.split(",")
         delete file["file"]
                
-        const newProduct = new Product({ title, price, tagsArr, info, file })
-        await newProduct.save()
         const product = await stripe.products.create({
             name: title,
             description: info,
-            images: [imglink],
-            default_price_data: {
-                currency: "sek",
-                unit_amount: price * 100
-            },
-
+            images: [imglink]
           });
+        const newPrice = await stripe.prices.create({
+            unit_amount: price * 100,
+            currency: 'sek',
+            product: product.id,
+        });
+        const newProduct = new Product({ title, price, tagsArr, info, file, stripeId: product.id, stripePrice: newPrice.id, imglink  })
+        await newProduct.save()
         return res.json({
             success: true,
             err: null,
@@ -85,12 +88,15 @@ export const addItemPost = async(req, res) => {
     }
     return res.json({success:null, err:true})
 }
+
+
+// 1. Fetch the items which are active (true)
 export const getItemsGet = async(req, res) => {
     const errMsg = "Something went wrong fetching the item"
     
     try {
         //const validation = await schema.validateAsync(req.body)        
-        const foundItems = await Product.find()
+        const foundItems = await Product.find({active:true})
         //console.log("foundItem: ",foundItems)
         
         return res.json({
@@ -105,6 +111,9 @@ export const getItemsGet = async(req, res) => {
     }
     return res.json({success:null, err:true})
 }
+
+// 1. Finds the item from input (id)
+// 2. sets active to false for db and stripe
 export const deleteItem = async(req, res) => {
     const errMsg = "Something went wrong deleting the item"
     const { formId, productId } = req.params
@@ -114,7 +123,12 @@ export const deleteItem = async(req, res) => {
     if(formId !== productId || !formId || !productId ) return res.json({success:null, err:true, message:errMsg})
     try {
         //const validation = await schema.validateAsync(req.body)        
-        const deletedItem = await Product.findByIdAndDelete(productId)        
+        const foundItem = await Product.findById(productId)        
+        const archivedProduct = await stripe.products.update(
+            foundItem.stripeId,
+            {active: false}
+          );
+        const deletedItem = await Product.findByIdAndUpdate(productId,{active:false})
         return res.json({success: true,err: null, message: "Success! Item deleted from database"})       
     } catch (error) {
         console.log("error delete: ",error)
@@ -122,29 +136,66 @@ export const deleteItem = async(req, res) => {
     }
     return res.json({success:null, err:true})
 }
+
+// 1. Filter the input data and stripeData then
+// 2. fountItem in DB , if price ? then create newPrice => update product with a newPrice and archive the oldPrice. then
+// 3. put in all the new info into DB
 export const updateItem = async(req, res) => {
     const errMsg = "Something went wrong deleting the item"
-    const { id, title, price, info, file, token } = req.body       
-    console.log("req.body: ",req.body) 
     try {
+        
+        const { id, title, price, info, file, imglink, token } = req.body       
+        console.log("req.body: ",req.body) 
+        
         //const validation = await schema.validateAsync(req.body)   
         var tagsArr
         if(req.body.tags){
             var tags = req.body.tags.replace(/\s+/g, '');
             tagsArr = tags.split(",")
         }
-        const data = file.base64 ? { title, price, info, file, tagsArr } : { title, price, info, tagsArr }
+        const data = file.base64 ? { title, price, info, file, imglink, tagsArr } : { title, price, info, tagsArr }
+        
         var filteredObj = {}
         Object.keys(data).forEach((e) => {
             if(data[e]){
             filteredObj[e] = data[e]
         }
         })
+        const stripeData = { name:title, description: info, images: imglink}
+        
+        var stripeFilteredObj = {}
+        Object.keys(stripeData).forEach((e) => {
+            if(stripeData[e]){
+                stripeFilteredObj[e] = e === "images" ?  [stripeData[e]] : stripeData[e]                                
+        }
+        })
+
+        console.log("stripeFilterObject: ",stripeFilteredObj)
+        const foundItem = await Product.findById(id)
+        var updatedProduct
+        if(price) {            
+            const newPrice = await stripe.prices.create({
+                unit_amount: price * 100,
+                currency: 'sek',                
+                product: foundItem.stripeId,
+              });
+            stripeFilteredObj["default_price"] = newPrice.id
+            updatedProduct = await stripe.products.update(foundItem.stripeId,stripeFilteredObj)
+            const oldPrice = await stripe.prices.update(foundItem.stripePrice,{active:false});            
+        }else {
+            updatedProduct = await stripe.products.update(foundItem.stripeId,stripeFilteredObj)
+        }
+
+        
+        filteredObj["stripePrice"] = updatedProduct.stripePrice
+        filteredObj["imglink"] = updatedProduct.imglink
+
         const updatedItem = await Product.findByIdAndUpdate(id, filteredObj,{new:true})
-        console.log("updatedItem: ",updatedItem)
+
+        //console.log("updatedItem: ",updatedItem)
         return res.json({success: true,err: null,message: "Success! Item updateed in database"})       
     } catch (error) {
-        console.log("error delete: ",error)
+        console.log("error updateItem: ",error)
         return res.json({success:null, err:true, message:errMsg})
     }
     return res.json({success:null, err:true})
@@ -220,7 +271,11 @@ export const createPaymentMethod = async(req, res) => {
           line_items: newItems.map((item) => {
            return {
              
-              price: item.priceId,
+              price: item.stripePriceId,
+              adjustable_quantity: {
+                enabled:true,
+                minimum: 1,
+              },
               quantity: item.itemQuantity,
             }
          }),
@@ -251,7 +306,7 @@ export const createPaymentMethod = async(req, res) => {
           }), */
 
           success_url: `${req.headers.origin}/success`,
-          cancel_url: `${req.headers.origin}/canceled`,
+          cancel_url: `${req.headers.origin}/`,
         }
   
         // Create Checkout Sessions from body params.
@@ -265,17 +320,25 @@ export const createPaymentMethod = async(req, res) => {
     
 
 }
-export const getAllPayments = async(req, res) => {
+export const getOrders = async(req, res) => {
     const errMsg = "Something went wrong deleting the item"
     const { id, title, price, info, file, token } = req.body       
     console.log("req.body: ",req.body) 
     try {
-        const paymentIntents = await stripe.paymentIntents.list({
+        /* const orders = await stripe.charges.list({
             
           });
-        return res.json({success: true,err: null,message: "Success! Item updateed in database"})       
+        console.log("orders[0].payment_intent: ",orders.data[0].payment_intent) */
+        const orders = await stripe.checkout.sessions.list(
+            {expand: ['data.line_items']}
+            );
+         
+         
+
+        console.log("payment: ",orders.data[1])        
+        return res.json({success: true,err: null, orders: orders.data})       
     } catch (error) {
-        console.log("error delete: ",error)
+        console.log("error getOrders: ",error)
         return res.json({success:null, err:true, message:errMsg})
     }
     return res.json({success:null, err:true})
@@ -327,8 +390,8 @@ const calculateOrderAmount = async(items) => {
                     itemPrice: dbItem.price,
                     totalItemsPrice: dbItem.price * item.quantity,
                     itemQuantity: item.quantity,
-                    img: dbItem.file.name,
-                    priceId: dbItem.priceId
+                    img: dbItem.file.name,                    
+                    stripePriceId: dbItem.stripePrice,
                   })
           }	
         }
@@ -338,4 +401,3 @@ const calculateOrderAmount = async(items) => {
     return {totalPrice:totalPrice * 100, newItems, totalQuantity};
   };
 
-  //TODO Add priceId to database from the stripe database.

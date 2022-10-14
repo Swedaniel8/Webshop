@@ -25,6 +25,7 @@ const UpdateItemForm = ({productsInfo}) => {
         tags:"",    
         info:"",
         file:"",
+        imglink:"",
         token:""
     })
     /*-----------------------RECAPTCH VERIFY-------------------
@@ -51,12 +52,18 @@ const UpdateItemForm = ({productsInfo}) => {
         e.preventDefault()
         
         var sendData = formData
+        var filteredObj = {}
+        Object.keys(sendData).forEach((e) => {
+            if(sendData[e]){
+                filteredObj[e] = sendData[e]
+            }
+        })
         //sendData["token"] = tokenState
-        sendData["file"] = selectedFile
-        console.log("sendData: ",sendData)
+        filteredObj["file"] = selectedFile
+        console.log("sendData: ",filteredObj)
         setErrorMessage("")
 
-        dispatch(updateItems(sendData))
+        dispatch(updateItems(filteredObj))
             .then(unwrapResult)
             .then(res => {
                 console.log("response updateItemForm: ",res)
@@ -71,6 +78,7 @@ const UpdateItemForm = ({productsInfo}) => {
                     tags:"",    
                     info:"",
                     file:"",
+                    imglink:"",
                     token:""
                 })
         })
@@ -93,6 +101,8 @@ const UpdateItemForm = ({productsInfo}) => {
 
             <p>Current Tags: {productsInfo.tags}</p>            
             <input type="tags" id="ftags" placeholder="add tags... ex: tag1,tag2,tag3,tag4" onChange={handleChange} value={formData.tags} name="tags" required></input>
+
+            <input type="text" id="fimglink" placeholder="Url link for image" onChange={handleChange} value={formData.imglink} name="imglink" required></input>
             
             
 

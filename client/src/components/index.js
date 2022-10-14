@@ -10,6 +10,7 @@ import ShowItemForm from './ShowItemForm/ShowItemForm'
 import UpdateItemForm from './UpdateItemForm/UpdateItemForm'
 import AdminItemCard from './AdminItemCard/AdminItemCard'
 import RemoveItemForm from './RemoveItemForm/RemoveItemForm'
+import InvoiceCard from './InvoiceCard/InvoiceCard'
 
 
 export {
@@ -24,5 +25,6 @@ export {
     ShowItemForm,
     UpdateItemForm,
     AdminItemCard,
-    RemoveItemForm
+    RemoveItemForm,
+    InvoiceCard
 }

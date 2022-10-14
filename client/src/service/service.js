@@ -17,3 +17,6 @@ export const updateItem = (data) => {return http.put("/updateitem",data)}
 // STRIPE
 // POST
 export const createProduct = (data) => {return http.post("/createProductStripe",data)}
+
+// GET
+export const getOrder = (data) => {return http.get("/getorders")}

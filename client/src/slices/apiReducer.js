@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { addItemPost, getItem, deleteItem, updateItem, createProduct } from '../service/service'
+import { addItemPost, getItem, deleteItem, updateItem, createProduct, getOrder } from '../service/service'
 
 export const addItemPosts = createAsyncThunk(
     "post/addItem",
@@ -34,6 +34,13 @@ export const createProducts = createAsyncThunk(
     "post/createProducts",
     async(info) => {        
         const res = await createProduct(info)
+        return res.data
+    }
+)
+export const getOrders = createAsyncThunk(
+    "get/getOrders",
+    async(info) => {        
+        const res = await getOrder(info)
         return res.data
     }
 )

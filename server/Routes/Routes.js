@@ -4,7 +4,7 @@ import express from 'express';
 
 
 
-import { addItemPost, createPaymentMethod ,getItemsGet, deleteItem, updateItem  } from '../Controllers/form.js';
+import { addItemPost, createPaymentMethod ,getItemsGet, deleteItem, updateItem, getOrders  } from '../Controllers/form.js';
 
 const router =  express.Router()
 
@@ -21,6 +21,9 @@ router.put("/updateitem",updateItem)
 
 // STRIPE PAYMENTS
 router.post("/create-payment-intent",createPaymentMethod)
+
+// GET
+router.get("/getorders",getOrders)
 
 
 //router.post("/update-payment-intent",updatePaymentMethod)

@@ -21,7 +21,14 @@ const productSchema = mongoose.Schema({
         type:Number,
         default: 1
     },
-    tags: [String]    
+    tags: [String],
+    stripeId: String,
+    stripePrice: String,
+    imglink: String,
+    active: {
+        type: Boolean,
+        default: true
+    }
     
 })
 

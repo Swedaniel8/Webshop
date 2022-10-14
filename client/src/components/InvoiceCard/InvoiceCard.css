@@ -1,0 +1,8 @@
+.component__invoicecard {
+    width: 500px; height: 100%;
+    border: 1px solid black;
+    margin-bottom: 2rem;
+}
+.invoicecard__items {
+
+}
