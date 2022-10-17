@@ -266,7 +266,7 @@ export const createPaymentMethod = async(req, res) => {
         const params = {
           submit_type: 'pay',
           mode: 'payment',
-          payment_method_types: ['card'],
+          payment_method_types: ['card','klarna'],
           billing_address_collection: 'auto',
           line_items: newItems.map((item) => {
            return {
